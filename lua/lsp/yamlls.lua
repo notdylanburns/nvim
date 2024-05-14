@@ -1,10 +1,15 @@
 return function()
     require("lspconfig")["yamlls"].setup {
         capabilities = require("cmp_nvim_lsp").default_capabilities(),
-        on_attach = function() end,
-        settings = {
-            yaml = {
-                customTags = {
+        on_attach = function(client, bufnr)
+            local ft = vim.bo[bufnr].filetype
+            local schema = require("lib.ftschema").get_schema_for_ft(ft)
+            if schema == nil then
+                return
+            end
+
+            if ft == "yaml.cloudformation" or ft == "yaml.aws-sam" then
+                client.config.settings.yaml.customTags = {
                     "!And",
                     "!And sequence",
                     "!If",
@@ -32,11 +37,30 @@ return function()
                     "!Select sequence",
                     "!Split",
                     "!Split sequence"
-                },
-                schemaStore = {
-                    enable = true,
-                    url = "https://www.schemastore.org/"
                 }
+            end
+
+            client.config.settings.yaml.schemas = {
+                [schema] = {"*"}
+            }
+        end,
+        filetypes = {
+            "yaml",
+            "yaml.asl",
+            "yaml.aws-sam",
+            "yaml.cloudformation",
+        },
+        settings = {
+            yaml = {
+                completion = true,
+                hover = true,
+                schemaStore = {
+                    -- enable = true,
+                    -- url = "https://www.schemastore.org/"
+                    enable = false,
+                    url = "",
+                },
+                schemas = require('schemastore').yaml.schemas(),
             }
         }
     }

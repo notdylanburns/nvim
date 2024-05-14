@@ -68,7 +68,7 @@ return {
                     { name = "buffer" },
                 },
                 mapping = {
-                    ["<C-Space>"] = cmp.mapping.complete(),
+                    ["<C-\\>"] = cmp.mapping.complete(),
                     ["<CR>"] = cmp.mapping.confirm {
                         behavior = cmp.ConfirmBehavior.Replace,
                         select = true,

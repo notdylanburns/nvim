@@ -15,19 +15,20 @@ return {
         "williamboman/mason-lspconfig.nvim",
         dependencies = {
             "williamboman/mason.nvim",
+            "b0o/schemastore.nvim",
         },
         config = function()
             require("mason").setup()
             require("mason-lspconfig").setup {
                 ensure_installed = {
-                    "azure_pipelines_ls",
+                    -- "azure_pipelines_ls",
                     "bashls",
                     "html",
                     "jsonls",
                     "lua_ls",
                     "pyright",
                     "rust_analyzer",
-                    -- "yamlls"
+                    "yamlls"
                 }
             }
 
@@ -48,6 +49,7 @@ return {
         dependencies = {
             "williamboman/mason.nvim",
             "mfussenegger/nvim-lint",
+            "b0o/schemastore.nvim",
         },
         config = function ()
             require("mason").setup()
@@ -55,22 +57,17 @@ return {
                 ensure_installed = {
                     "cfn-lint",
                     "flake8",
-                    "sonarlint-language-server",
+                    -- "sonarlint-language-server",
                 },
                 automatic_installation = false,
             }
 
             require("lint").linters_by_ft = {
-                cfn_lint = {"yaml"},
-                flake8 = {"python"},
-                ["sonarlint-language-server"] = {"python"},
+                -- python = {"flake8", "sonarlint-language-server"},
+                python = {"flake8"},
+                ["yaml.cloudformation"] = {"cfn_lint"},
+                ["yaml.aws-sam"] = {"cfn_lint"},
             }
-
-            vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-                callback = function()
-                    require("lint").try_lint()
-                end,
-            })
         end
     }
 }

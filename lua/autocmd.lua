@@ -13,6 +13,9 @@ vim.cmd [[
 ]]
 
 local autocmds = {
+    lint = {
+        {"BufRead,BufWritePost,InsertLeave", "*", [[ :lua require("lint").try_lint() ]]},
+    },
     terminal_job = {
         { "TermOpen", "*", "startinsert" },
         { "TermOpen", "*", "setlocal listchars= nonumber norelativenumber" },
@@ -29,4 +32,3 @@ for group_name, definition in pairs(autocmds) do
     end
     vim.api.nvim_command('augroup END')
 end
-
