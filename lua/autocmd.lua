@@ -13,6 +13,9 @@ vim.cmd [[
 ]]
 
 local autocmds = {
+    ftdetect = {
+        {"BufWritePost", "*", [[ :filetype detect ]]},
+    },
     lint = {
         {"BufRead,BufWritePost,InsertLeave", "*", [[ :lua require("lint").try_lint() ]]},
     },
