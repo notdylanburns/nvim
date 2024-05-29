@@ -1,8 +1,8 @@
 local util = require("lib.util")
 
-util.nnoremap("<M-d>", "<Cmd>BufferClose<CR>")
+util.nnoremap("<M-d>", "<Cmd>BufferClose!<CR>")
 util.nnoremap("<M-S-d>", "<Cmd>BufferRestore<CR>")
-util.nnoremap("<M-d><M-d>", "<Cmd>BufferCloseAllButCurrentOrPinned<CR>")
+util.nnoremap("<M-d><M-d>", "<Cmd>BufferCloseAllButCurrentOrPinned!<CR>")
 util.nnoremap("<M-,>", "<Cmd>BufferPrevious<CR>")
 util.nnoremap("<M-.>", "<Cmd>BufferNext<CR>")
 util.nnoremap("<M-<>", "<Cmd>BufferMovePrevious<CR>")

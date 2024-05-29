@@ -1,5 +1,3 @@
-vim.g.THEME = "kanagawa"
-
 local o = vim.opt
 
 o.autoindent = true
@@ -37,6 +35,7 @@ o.softtabstop = 4
 o.splitbelow = true
 o.splitkeep = "screen"
 o.splitright = true
+o.swapfile = false
 o.tabstop = 4
 o.termguicolors = true
 o.timeoutlen = 250
@@ -70,6 +69,7 @@ o.whichwrap:append {
 o.wildmode = {
     longest = true,
     list = true,
+    full = true,
 }
 
 vim.g.do_filetype_lua = 1

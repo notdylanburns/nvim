@@ -1,3 +1,5 @@
+local M = {}
+
 local function get_mapper(mode, noremap)
     return function(lhs, rhs, opts)
         opts = opts or {}
@@ -6,10 +8,18 @@ local function get_mapper(mode, noremap)
     end
 end
 
-return {
-    noremap = get_mapper("n", false),
-    nnoremap = get_mapper("n", true),
-    inoremap = get_mapper("i", true),
-    tnoremap = get_mapper("t", true),
-    vnoremap = get_mapper("v", true),
-}
+M.noremap = get_mapper("n", false)
+M.nnoremap = get_mapper("n", true)
+M.inoremap = get_mapper("i", true)
+M.tnoremap = get_mapper("t", true)
+M.vnoremap = get_mapper("v", true)
+
+function M.get_char()
+    return vim.fn.strcharpart(
+        vim.fn.strpart(vim.fn.getline('.'), vim.fn.col('.') - 1),
+        0,
+        1
+    )
+end
+
+return M

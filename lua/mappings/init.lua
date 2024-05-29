@@ -3,6 +3,12 @@ local util = require("lib.util")
 util.nnoremap("<Leader>e", "v$h")           -- Select to end of line
 util.nnoremap("p", "p<Cmd>%s/\\r$/<CR>")    -- Strip \r when pasting
 util.nnoremap("P", "P<Cmd>%s/\\r$/<CR>")    -- Strip \r when pasting
+util.vnoremap("p", "p<Cmd>%s/\\r$/<CR>")    -- Strip \r when pasting
+util.vnoremap("P", "P<Cmd>%s/\\r$/<CR>")    -- Strip \r when pasting
+
+-- Create splits
+util.nnoremap("<Leader>ss", "<Cmd>split<CR>")
+util.nnoremap("<Leader>vs", "<Cmd>vsplit<CR>")
 
 -- Move between splits
 util.nnoremap("<C-h>", "<C-w>h")
@@ -21,6 +27,10 @@ util.nnoremap("<A-S-h>", "<C-w>H")
 util.nnoremap("<A-S-j>", "<C-w>J")
 util.nnoremap("<A-S-k>", "<C-w>K")
 util.nnoremap("<A-S-l>", "<C-w>L")
+
+-- Open terminal
+util.nnoremap("<C-t>", "<Cmd>terminal<CR>")
+util.nnoremap("<Leader>t", "<Cmd>split<CR><Cmd>terminal<CR>")
 
 --[[
 nnoremap(
@@ -42,7 +52,6 @@ nnoremap(
 
 -- Terminal Escape
 util.tnoremap("<Esc>", "<C-\\><C-n>")
-util.nnoremap("<Leader>t", "<Cmd>split<CR><Cmd>terminal<CR>")
 
 -- Tab selected blocks
 util.nnoremap("<Tab>", "<S->><S->>")
