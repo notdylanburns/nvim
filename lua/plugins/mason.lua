@@ -23,6 +23,7 @@ return {
                 ensure_installed = {
                     -- "azure_pipelines_ls",
                     "bashls",
+                    "bicep",
                     "html",
                     "jsonls",
                     "lua_ls",
@@ -40,6 +41,7 @@ return {
                     }
                 end,
                 ["lua_ls"] = require("lsp.lua_ls"),
+                ["pyright"] = require("lsp.pyright"),
                 ["yamlls"] = require("lsp.yamlls")
             }
         end

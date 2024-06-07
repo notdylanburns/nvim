@@ -6,6 +6,9 @@ util.nnoremap("P", "P<Cmd>%s/\\r$/<CR>")    -- Strip \r when pasting
 util.vnoremap("p", "p<Cmd>%s/\\r$/<CR>")    -- Strip \r when pasting
 util.vnoremap("P", "P<Cmd>%s/\\r$/<CR>")    -- Strip \r when pasting
 
+util.nnoremap("<CR>", "o<Esc>")             -- Insert newline below
+util.nnoremap("<S-CR>", "m`O<Esc>``")       -- Insert newline above
+
 -- Create splits
 util.nnoremap("<Leader>ss", "<Cmd>split<CR>")
 util.nnoremap("<Leader>vs", "<Cmd>vsplit<CR>")
