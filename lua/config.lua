@@ -17,7 +17,6 @@ o.inccommand = "split"
 o.incsearch = true
 o.laststatus = 3
 o.list = true
-o.listchars = {}
 o.mouse = "a"
 o.number = true
 o.pumheight = 10

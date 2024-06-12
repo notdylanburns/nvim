@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "AWS_PROFILE = $AWS_PROFILE"
+echo 'Hello, world!'
+pwd

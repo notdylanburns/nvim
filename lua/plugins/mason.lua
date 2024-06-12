@@ -53,7 +53,7 @@ return {
             "mfussenegger/nvim-lint",
             "b0o/schemastore.nvim",
         },
-        config = function ()
+        config = function()
             require("mason").setup()
             require("mason-nvim-lint").setup {
                 ensure_installed = {
@@ -66,10 +66,44 @@ return {
 
             require("lint").linters_by_ft = {
                 -- python = {"flake8", "sonarlint-language-server"},
-                python = {"flake8"},
-                ["yaml.cloudformation"] = {"cfn_lint"},
-                ["yaml.aws-sam"] = {"cfn_lint"},
+                python = { "flake8" },
+                ["yaml.cloudformation"] = { "cfn_lint" },
+                ["yaml.aws-sam"] = { "cfn_lint" },
             }
         end
+    },
+    {
+        "stevearc/conform.nvim",
+        lazy = false,
+        keys = {
+            {
+                "<leader>f",
+                function()
+                    require("conform").format { async = true, lsp_fallback = true }
+                end,
+                mode = "",
+            },
+        },
+        opts = {
+            notify_on_error = false,
+            format_on_save = function()
+                return {
+                    timeout_ms = 500,
+                    lsp_fallback = true,
+                }
+            end,
+            formatters_by_ft = {
+                -- lua = { "stylua" },
+                python = { "isort", "black" },
+            },
+        },
+    },
+    {
+        "zapling/mason-conform.nvim",
+        dependencies = {
+            "williamboman/mason.nvim",
+            "stevearc/conform.nvim"
+        },
+        config = true,
     }
 }

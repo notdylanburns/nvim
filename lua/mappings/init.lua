@@ -1,6 +1,11 @@
 local util = require("lib.util")
 
-util.nnoremap("<Leader>e", "v$h")           -- Select to end of line
+local function bufdelete(force)
+    return function()
+        require("bufdelete").bufdelete(0, force)
+    end
+end
+
 util.nnoremap("p", "p<Cmd>%s/\\r$/<CR>")    -- Strip \r when pasting
 util.nnoremap("P", "P<Cmd>%s/\\r$/<CR>")    -- Strip \r when pasting
 util.vnoremap("p", "p<Cmd>%s/\\r$/<CR>")    -- Strip \r when pasting
@@ -10,8 +15,8 @@ util.nnoremap("<CR>", "o<Esc>")             -- Insert newline below
 util.nnoremap("<S-CR>", "m`O<Esc>``")       -- Insert newline above
 
 -- Create splits
-util.nnoremap("<Leader>ss", "<Cmd>split<CR>")
-util.nnoremap("<Leader>vs", "<Cmd>vsplit<CR>")
+util.nnoremap("<Leader>ss", util.cmd("split"))
+util.nnoremap("<Leader>vs", util.cmd("vsplit"))
 
 -- Move between splits
 util.nnoremap("<C-h>", "<C-w>h")
@@ -31,9 +36,17 @@ util.nnoremap("<A-S-j>", "<C-w>J")
 util.nnoremap("<A-S-k>", "<C-w>K")
 util.nnoremap("<A-S-l>", "<C-w>L")
 
+-- Switch buffers
+util.nnoremap("<A-,>", util.cmd("bp"))
+util.nnoremap("<A-.>", util.cmd("bn"))
+
+-- Close buffers (leaving splits intact)
+util.nnoremap("<A-d>", bufdelete(true))
+
 -- Open terminal
-util.nnoremap("<C-t>", "<Cmd>terminal<CR>")
-util.nnoremap("<Leader>t", "<Cmd>split<CR><Cmd>terminal<CR>")
+util.nnoremap("<C-'>", util.cmd("terminal"))
+util.nnoremap("<Leader>tt", util.cmd("split", "terminal"))
+util.nnoremap("<Leader>tr", util.cmd("vsplit", "terminal"))
 
 --[[
 nnoremap(

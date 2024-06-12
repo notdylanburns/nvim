@@ -1,4 +1,4 @@
-vim.cmd [[
+vim.cmd([[
     function! s:StripTrailingWhitespaces()
         let l = line(".")
         let c = col(".")
@@ -10,28 +10,36 @@ vim.cmd [[
         autocmd!
         autocmd BufWritePre * :call s:StripTrailingWhitespaces()
     augroup END
-]]
+]])
 
 local autocmds = {
     ftdetect = {
-        {"BufWritePost", "*", [[ :filetype detect ]]},
+        { "BufWritePost", "*", [[ :filetype detect ]] },
+    },
+    lazygit = {
+        { "TermOpen", "FileType lazygit", [[
+            :echom "hello"
+            :tunmap <Esc>
+        ]]},
     },
     lint = {
-        {"BufRead,BufWritePost,InsertLeave", "*", [[ :lua require("lint").try_lint() ]]},
+        { "BufRead,BufWritePost,InsertLeave", "*", [[ :lua require("lint").try_lint() ]] },
     },
     terminal_job = {
-        { "TermOpen", "*", "startinsert" },
-        { "TermOpen", "*", "setlocal listchars= nonumber norelativenumber" },
+        { "TermOpen", "*", [[
+            startinsert
+            setlocal listchars= nonumber norelativenumber
+        ]]},
     },
 }
 
 for group_name, definition in pairs(autocmds) do
-    vim.api.nvim_command('augroup '..group_name)
+    vim.api.nvim_command("augroup " .. group_name)
 
-    vim.api.nvim_command('autocmd!')
+    vim.api.nvim_command("autocmd!")
     for _, def in ipairs(definition) do
-        local command = table.concat(vim.tbl_flatten{'autocmd', def}, ' ')
+        local command = table.concat(vim.tbl_flatten({ "autocmd", def }), " ")
         vim.api.nvim_command(command)
     end
-    vim.api.nvim_command('augroup END')
+    vim.api.nvim_command("augroup END")
 end
