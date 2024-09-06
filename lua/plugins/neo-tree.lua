@@ -8,12 +8,17 @@ local function setup()
                 hide_gitignored = false,
                 never_show = {},
             },
+            follow_current_file = {
+                enabled = true,
+                leave_dirs_open = false,
+            },
             hijack_netrw_behaviour = "open_current",
+            use_libuv_file_watcher = true
         },
         window = {
-            -- position = "current",
+            position = "current",
             mappings = {
-                ["h"] = function(state) end,
+                ["h"] = function(_) end,
                 ["Y"] = function(state)
                     vim.fn.setreg('"', state.tree:get_node():get_id())
                 end

@@ -25,6 +25,7 @@ return {
                     "bashls",
                     "bicep",
                     "html",
+                    "hls",
                     "jsonls",
                     "lua_ls",
                     "pyright",
@@ -42,6 +43,7 @@ return {
                 end,
                 ["lua_ls"] = require("lsp.lua_ls"),
                 ["pyright"] = require("lsp.pyright"),
+                ["rust_analyzer"] = require("lsp.rust_analyzer"),
                 ["yamlls"] = require("lsp.yamlls")
             }
         end
@@ -61,7 +63,6 @@ return {
                     "flake8",
                     -- "sonarlint-language-server",
                 },
-                automatic_installation = false,
             }
 
             require("lint").linters_by_ft = {
@@ -73,37 +74,34 @@ return {
         end
     },
     {
-        "stevearc/conform.nvim",
-        lazy = false,
-        keys = {
-            {
-                "<leader>f",
-                function()
-                    require("conform").format { async = true, lsp_fallback = true }
-                end,
-                mode = "",
-            },
-        },
-        opts = {
-            notify_on_error = false,
-            format_on_save = function()
-                return {
-                    timeout_ms = 500,
-                    lsp_fallback = true,
-                }
-            end,
-            formatters_by_ft = {
-                -- lua = { "stylua" },
-                python = { "isort", "black" },
-            },
-        },
-    },
-    {
         "zapling/mason-conform.nvim",
         dependencies = {
             "williamboman/mason.nvim",
             "stevearc/conform.nvim"
         },
         config = true,
+    },
+    {
+        "jay-babu/mason-nvim-dap.nvim",
+        dependencies = {
+            "mfussenegger/nvim-dap"
+        },
+        config = function()
+            require("mason").setup()
+            require("mason-nvim-dap").setup {
+                ensure_installed = {
+                    "python",
+                    "codelldb",
+                },
+                automatic_installation = true,
+                handlers = {
+                    function(config)
+                        require('mason-nvim-dap').default_setup(config)
+                    end,
+
+                    codelldb = require("dap.adapters.codelldb"),
+                },
+            }
+        end
     }
 }
