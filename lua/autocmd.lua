@@ -16,20 +16,17 @@ local autocmds = {
     ftdetect = {
         { "BufWritePost", "*", [[ :filetype detect ]] },
     },
-    lazygit = {
-        { "TermOpen", "FileType lazygit", [[
-            :echom "hello"
-            :tunmap <Esc>
-        ]]},
-    },
     lint = {
         { "BufRead,BufWritePost,InsertLeave", "*", [[ :lua require("lint").try_lint() ]] },
+    },
+    project = {
+        { "VimEnter", "*", [[ :lua require("project").enter_project() ]] },
     },
     terminal_job = {
         { "TermOpen", "*", [[
             startinsert
             setlocal listchars= nonumber norelativenumber
-        ]]},
+        ]] },
     },
 }
 

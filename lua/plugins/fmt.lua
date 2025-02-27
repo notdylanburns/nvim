@@ -22,5 +22,14 @@ return {
             -- lua = { "stylua" },
             python = { "isort", "black" },
         },
+        formatters = {
+            isort = {
+                prepend_args = {
+                    "--profile", "black",
+                    "--line-length", "88", -- Same as black
+                    "--multi-line", "3"    -- Vertical hanging indent (same fmt as black)
+                },
+            }
+        }
     },
 }
